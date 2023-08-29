@@ -7,8 +7,13 @@ class SearchForm(forms.Form):
     CHOICE_LIST = [("Foto","Cerca nome foto"), ("Fotografo", "Cerca nome fotografo"),
                    ("Colore", "Cerca per colore principale"), ("Orientamento", "Cerca per orientamento")]
 
-    search_string = forms.CharField(label="Search String", max_length=100, min_length=1, required=True)
-    search_where = forms.ChoiceField(label="Search Where?", required=True, choiches=CHOICE_LIST)
+    helper = FormHelper()
+    helper.form_id = 'search_crispy_form'
+    helper.form_method = "POST"
+    helper.add_input(Submit('submit', 'Cerca'))
+
+    search_string = forms.CharField(label="Cerca qualcosa", max_length=100, min_length=1, required=True)
+    search_where = forms.ChoiceField(label="Ricerca per: ", required=True, choices=CHOICE_LIST)
 
 
 class FotoCrispyForm(forms.ModelForm):

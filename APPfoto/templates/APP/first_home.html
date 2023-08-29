@@ -1,15 +1,12 @@
 {% extends 'APP/base.html' %}
 
-{% block title %} Home di Gestione {% endblock %} 
+{% block title %} Home di APPfoto {% endblock %}
 
 {% block header1 %}
-  <h1>Home di Gestione</h1>
-  <p>Welcome 
-    {% if user.is_authenticated %}
-     {{ user.username }}
-    {% else %}
+  <h1>Home di APPfoto</h1>
+  <p>Welcome
     Utente non registrato
-    {% endif %}
+
   </p> 
 {% endblock %}
 
