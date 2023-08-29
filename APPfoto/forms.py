@@ -26,3 +26,14 @@ class FotoCrispyForm(forms.ModelForm):
     class Meta:
         model = Foto
         fields = ('name', 'artist_name', 'main_colour', 'landscape')
+
+
+class CreateFotoForm(forms.ModelForm):
+    helper = FormHelper()
+    helper.form_id = "addfoto_crispy_form"
+    helper.form_method = "POST"
+    helper.add_input(Submit("submit", "Aggiungi Foto"))
+
+    class Meta:
+        model = Foto
+        fields = ["name", "artist_name", "landscape", "main_colour"]

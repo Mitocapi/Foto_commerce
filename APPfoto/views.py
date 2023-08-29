@@ -1,22 +1,20 @@
 from django.shortcuts import render, redirect
 from .forms import *
 from django.views.generic.list import ListView
+from django.views.generic.edit import CreateView
+from django.urls import reverse_lazy
 
 # Create your views here.
 
 
-def home(request):
-    return render(request, template_name="APP/base.html")
-
-
-def first_home_view(request):
-    return render(request, template_name="APP/first_home.html")
+def home_view(request):
+    return render(request, template_name="APPfoto/home.html")
 
 
 class FotoListView(ListView):
     titolo="Abbiamo trovato queste foto"
     model = Foto
-    template_name="APP/lista_foto.html"
+    template_name= "APPfoto/lista_foto.html"
 
 
 def search(request):
@@ -30,7 +28,7 @@ def search(request):
     else:
         form = SearchForm()
 
-    return render(request,template_name="APP/search.html",context={"form":form})
+    return render(request, template_name="APPfoto/search.html", context={"form":form})
 
 
 class FotoRicercaView(FotoListView):
@@ -45,3 +43,10 @@ class FotoRicercaView(FotoListView):
             qq = self.model.objects.filter(autore__icontains=sstring)
 
         return qq
+
+
+class CreateFotoView(CreateView):
+    title = "Aggiungi un libro alla biblioteca"
+    form_class = CreateFotoForm
+    template_name = "APPfoto/create_entry.html"
+    success_url = reverse_lazy("APPfoto:home")
