@@ -7,32 +7,36 @@
 {% endblock %}
 
 {% block content %}
-
 <h2> {{ view.nome }} {{ object_list.count }} Foto </h2>
 
 <br>
-
-{% for f in object_list %}
-<br>
-<div class="card">
-    <div class="card-body">
-        <h5 class="card-title">{{ f.nome }}</h5>
-        {% if f.landscape %}
-            <p class="card-text">foto scattata da {{ f.artist_name }} in formato Landscape</p>
-
-        {% else %}
-           <p class="card-text">foto scattata da {{ f.artist_name }} in formato Portrait</p>
-        {% endif %}
-        Spero ti piaccia</a>
-
+{% if object_list %}
+    {% for f in object_list %}
+    <br>
+    <div class="card">
+        <div class="card-body">
+            <h5 class="card-title">{{ f.nome }}</h5>
+            {% if f.landscape %}
+                <p class="card-text">foto scattata da {{ f.artist_name }} in formato Landscape</p>
+            {% else %}
+               <p class="card-text">foto scattata da {{ f.artist_name }} in formato Portrait</p>
+            {% endif %}
+            Spero ti piaccia
+        </div>
+        <div class="card-header">
+            Questa foto potrebbe piacerti
+        </div>
     </div>
-    <div class="card-header">
-   Questa foto potrebbe piacerti
-  </div>
-</div>
-<br>
-{%endfor%}
-
+    <br>
+    {% endfor %}
+{% else %}
+    <p>No photos available. Redirecting...</p>
+    <script>
+        setTimeout(function() {
+            window.location.href = "{% url 'APPfoto:search_wrong_colours' %}";
+        }, 3000);  // Redirect after 3 seconds
+    </script>
+{% endif %}
 <br>
 
 {% endblock %}

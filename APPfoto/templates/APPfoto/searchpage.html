@@ -5,7 +5,7 @@
 {% block content %}
 
     <h1>Search Page</h1>
-
+        SEI IN SEARCH PAGE
     <form action="{% url 'APPfoto:search' %}" method="POST"> {% csrf_token %}
     {{ form.as_p }}
     <input type="submit" value="Search">

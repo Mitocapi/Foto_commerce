@@ -14,15 +14,23 @@
 <h2> Cerca tra le foto </h2>
 
 <br>
-        SEI IN SEARCH NORMALE
+
+{% if form.errors %}
+<div class="alert alert-danger" style="background-color: rgba(255, 0, 0, 0.2);">
+  <strong>Error:</strong> HAVE YOU EVER KILLED WITH ALL THE COLOURS OF THE WIND?.
+</div>
+{% endif %}
+
 <br>
 
 <div class="d-flex justify-content-center">
-
   {% crispy form %}
-
 </div>
 <br>
+    Sei stato rimandato a questa pagina perchè la ricerca non ha prodotto risultati <br>
+
+    Ti ricordo che i colori disponibili sono: <br>
+    Black,Dark Blue, Green, Gray, Light Blue, Orange, Pink, Purple, Red, White e Yellow.
 
 
 <br>
