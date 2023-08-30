@@ -46,7 +46,7 @@ class FotoRicercaView(FotoListView):
 
 
 class CreateFotoView(CreateView):
-    title = "Aggiungi un libro alla biblioteca"
+    title = "Aggiungi la tua foto alla galleria"
     form_class = CreateFotoForm
     template_name = "APPfoto/create_entry.html"
     success_url = reverse_lazy("APPfoto:home")

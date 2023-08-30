@@ -4,8 +4,8 @@ from crispy_forms.layout import Submit
 from .models import *
 
 class SearchForm(forms.Form):
-    CHOICE_LIST = [("Foto","Cerca nome foto"), ("Fotografo", "Cerca nome fotografo"),
-                   ("Colore", "Cerca per colore principale"), ("Orientamento", "Cerca per orientamento")]
+    CHOICE_LIST = [("name","Cerca nome foto"), ("artist_name", "Cerca nome fotografo"),
+                   ("main_colour", "Cerca per colore principale"), ("Orientamento", "Cerca per orientamento")]
 
     helper = FormHelper()
     helper.form_id = 'search_crispy_form'
@@ -36,4 +36,4 @@ class CreateFotoForm(forms.ModelForm):
 
     class Meta:
         model = Foto
-        fields = ["name", "artist_name", "landscape", "main_colour"]
+        fields = ["name", "artist_name", "main_colour", "landscape","actual_photo"]
