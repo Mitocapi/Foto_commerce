@@ -14,16 +14,24 @@
 <h2> Cerca tra le foto </h2>
 
 <br>
-        SEI IN SEARCH NORMALE
+
+{% if redirect_param %}
+
+    <br>
+    Sei stato rimandato a questa pagina perchè la ricerca non ha prodotto risultati <br>
+
+    Ti ricordo che i colori disponibili sono: <br>
+    Black,Dark Blue, Green, Gray, Light Blue, Orange, Pink, Purple, Red, White e Yellow.
+
+
 <br>
 
-<div class="d-flex justify-content-center">
-
-  {% crispy form %}
-
-</div>
-<br>
-
+{% else %}
+    Sei in modalità di ricerca normale.
+    <div class="d-flex justify-content-center">
+        {% crispy form %}
+    </div>
+{% endif %}
 
 <br>
 

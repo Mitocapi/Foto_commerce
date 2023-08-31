@@ -17,17 +17,27 @@ from django.shortcuts import render
 from django.views import View
 
 
-class SearchWrongColoursView(View):
-    template_name = "APPfoto/search_wrong_colour.html"  # Replace with the actual template path
+from django.http import HttpResponseRedirect
+
+class SearchWrongColourView(View):
+    template_name = "APPfoto/search_wrong_colour.html"
 
     def get(self, request, *args, **kwargs):
-        return render(request, self.template_name)
+        form = SearchForm()  # Replace with your actual form class
+        context = {'form': form}
+        return render(request, self.template_name, context)
 
-    # If you want to handle POST requests as well
     def post(self, request, *args, **kwargs):
-        # Your post logic here
-        return render(request, self.template_name)
 
+        if request.method == "POST":
+            form = SearchForm(request.POST)
+            if form.is_valid():
+                sstring = form.cleaned_data.get("search_string")
+                where = form.cleaned_data.get("search_where")
+                return redirect("APPfoto:ricerca_risultati", sstring, where)
+            else:
+                context = {'form': form}
+            return render(request, self.template_name, context)
 
 
 class FotoListView(ListView):

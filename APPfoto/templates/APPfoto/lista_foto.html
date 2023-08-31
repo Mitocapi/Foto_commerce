@@ -32,8 +32,8 @@
 {% else %}
     <p>No photos available. Redirecting...</p>
     <script>
-        setTimeout(function() {
-            window.location.href = "{% url 'APPfoto:search_wrong_colours' %}";
+         setTimeout(function() {
+            window.location.href = "{% url 'APPfoto:search_wrong_colour' %}";
         }, 3000);  // Redirect after 3 seconds
     </script>
 {% endif %}
