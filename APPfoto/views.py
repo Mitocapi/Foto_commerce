@@ -1,9 +1,11 @@
-from django.shortcuts import render, redirect
+from django.contrib.auth.models import User
+from django.shortcuts import render, redirect, get_object_or_404
 from .forms import *
 from django.views.generic.list import ListView
 from django.views.generic.edit import CreateView
 from django.urls import reverse_lazy, reverse
-
+from django.http import HttpResponseRedirect
+from django.contrib.auth.decorators import login_required
 # Create your views here.
 
 
@@ -17,7 +19,7 @@ from django.shortcuts import render
 from django.views import View
 
 
-from django.http import HttpResponseRedirect
+
 
 class SearchWrongColourView(View):
     template_name = "APPfoto/search_wrong_colour.html"
@@ -55,21 +57,23 @@ def search(request):
         if form.is_valid():
             sstring = form.cleaned_data.get("search_string")
             where = form.cleaned_data.get("search_where")
-            print("SIAMO IN SEARCH PRIMA O DOPO WRONG?")
             return redirect("APPfoto:ricerca_risultati", sstring, where)
 
     else:
         form = SearchForm()
 
-    return render(request, "APPfoto/search.html", {"form": form})
+    return render(request, "APPfoto/search.html",context= {"form": form})
 
 
 class FotoListaRicercataView(FotoListView):
     titolo = "risultati ricerca"
 
     def get_queryset(self):
-        sstring = self.request.resolver_match.kwargs["sstring"]
-        where = self.request.resolver_match.kwargs["where"]
+        sstring = self.kwargs['sstring']
+        where = self.kwargs['where']
+
+        # Rest of your code for queryset filtering based on 'where' and 'sstring'
+
 
         if where == "name":
             qq = self.model.objects.filter(name__icontains=sstring)
@@ -84,10 +88,7 @@ class FotoListaRicercataView(FotoListView):
 
         else:
             qq = self.model.objects.filter(artist_name__icontains=sstring)
-        if not qq:
-            print("si va?")
-            return
-        print(qq)
+
         return qq
 
 
@@ -96,3 +97,9 @@ class CreateFotoView(CreateView):
     form_class = CreateFotoForm
     template_name = "APPfoto/create_entry.html"
     success_url = reverse_lazy("APPfoto:home")
+
+
+@login_required
+def my_situation(request):
+     user = get_object_or_404(User, pk=request.user.pk)
+     return render(request,"APPfoto/situation.html")

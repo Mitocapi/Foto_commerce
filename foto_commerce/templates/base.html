@@ -9,11 +9,15 @@
   <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js"></script>
   <style>
-  .fakeimg {
-    height: 200px;
-    background: #a41515;
+  .header-background {
+    background-image: url('/static/wallpaper.jpg');
+    background-size: cover;
+    background-position: top;
+    background-repeat: no-repeat;
+    color: white; /* Set the text color to contrast with the background */
   }
-  </style>
+</style>
+
   {% endblock %}
   {% load crispy_forms_tags %}
 
@@ -24,12 +28,13 @@
 
 <body>
 
-<div class="jumbotron text-center" style="margin-bottom:0">
-{% block header1 %}
-  <h1>Header</h1>
-  <p>Subtitle</p>
-{% endblock %}
+<div class="jumbotron text-center header-background" style="margin-bottom:0">
+  {% block header1 %}
+    <h1>Header</h1>
+    <p>Subtitle</p>
+  {% endblock %}
 </div>
+
 
 {% if user.is_authenticated and "ok" in request.GET.login  %}
 
@@ -37,13 +42,13 @@
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title">Welcome {{user.username}} </h5>
+        <h5 class="modal-title">Everybody say hello to {{user.username}} !</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
       <div class="modal-body">
-        <p> La procedura di login è andata a buon fine </p>
+        <p> Login avvenuto con successo, è un piacere riaverla tra noi signore </p>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-info" data-dismiss="modal">Chiudi</button>
@@ -62,7 +67,7 @@
 
 <nav class="navbar navbar-expand-sm bg-dark navbar-dark">
     {% block navbar %}
-    <a class="navbar-brand" href="{% url 'APPfoto:home' %}">FotoCOMMERCE</a>
+    <a class="navbar-brand" href="{% url 'home' %}">Super Gallery</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
       <span class="navbar-toggler-icon"></span>
     </button>
@@ -71,15 +76,15 @@
 
 
         <li class="nav-item">
-          <a class="nav-link" href="{% url 'APPfoto:home' %}">HOME</a>
+          <a class="nav-link" href="{% url 'APPfoto:home' %}">Er gestionale va qua</a>
         </li>
 
         <li class="nav-item">
-          <!-- <a class="nav-link" href=" QUA CI VA APERTAGRAFFA PERCENTO url 'gestione:listalibri' %}">Lista dei Libri</a> -->
+          <a class="nav-link" href="{% url 'APPfoto:listafoto' %}">Lista delle foto</a>
         </li>
 
         <li class="nav-item">
-          <a class="nav-link" href="{% url 'APPfoto:cercaFoto' %}">Cerca una Foto</a>
+          <a class="nav-link" href="{% url 'APPfoto:cercaFoto' %}">Sai già di cosa hai voglia? Cerca una foto</a>
         </li>
 
       </ul>
@@ -95,11 +100,11 @@
         <center>
 
         {% block content %}
-        <h2>TITLE HEADING</h2>
-        <h5>Title description, Dec 7, 2017</h5>
+        <h2>QUI TITOLO ACCATTIVANTE</h2>
+        <h5>Sottotitolo meno accattivante ma pur sempre rilevante</h5>
         <div class="fakeimg">Fake Image</div>
-        <p>Some text..</p>
-        <p>Sunt in culpa qui officia deserunt mollit anim id est laborum consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco.</p>
+        <p>Did you ever hear the tragedy of Darth Plagueis the wise?</p>
+        <p>I thought not, it's not a story the jedi would tell you </p>
         {% endblock %}
         <br>
         </center>
@@ -109,6 +114,15 @@
 
   <div class="jumbotron text-center" style="margin-bottom:0">
     {% block footer %}
+
+      {% if user.is_authenticated %}
+      <a class="btn btn-info" href="{% url 'logout' %}" role="button">Logout</a>
+      {% else %}
+      <a class="btn btn-info" href="{% url 'register' %}" role="button">Sei nuovo? Registrati</a>
+      <a class="btn btn-info" href="{% url 'login' %}" role="button">Login</a>
+      {% endif %}
+
+      <a class="btn btn-warning" href="/admin/" role="button">Login dei VIP (fotografi)</a>
 
     {%  endblock %}
   </div>
