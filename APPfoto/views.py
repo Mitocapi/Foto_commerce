@@ -72,8 +72,6 @@ class FotoListaRicercataView(FotoListView):
         sstring = self.kwargs['sstring']
         where = self.kwargs['where']
 
-        # Rest of your code for queryset filtering based on 'where' and 'sstring'
-
 
         if where == "name":
             qq = self.model.objects.filter(name__icontains=sstring)
